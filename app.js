@@ -8,6 +8,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const tourRouter = require('./routes/tourRoutes');
@@ -30,6 +31,10 @@ app.use(
     contentSecurityPolicy: false
   })
 );
+
+app.use(cors());
+
+app.options('*', cors());
 
 // 1) MIDDLEWARES
 if (process.env.NODE_ENV === 'development') {
