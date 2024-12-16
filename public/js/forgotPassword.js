@@ -15,7 +15,7 @@ export const forgotPassword = async email => {
     if (res.data.status === 'success') {
       showAlert(
         'success',
-        'Reset Password link is send to your email , check yout email'
+        'Reset Password link is send to your email , check your email'
       );
     }
   } catch (err) {

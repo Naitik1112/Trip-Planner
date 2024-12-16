@@ -8,7 +8,7 @@ const router = express.Router();
 // Uncomment this line if you have a checkID function
 // router.param('id', tourController.checkID);
 
-router.use('/:tourId/reviews', reviewRouter);
+router.use('/:slug/reviews', reviewRouter);
 
 router
   .route('/top-5-cheap')
@@ -42,7 +42,7 @@ router
 
 router
   .route('/:id')
-  .get(tourController.getTour)
+  .get(authController.protect, tourController.getTour)
   .patch(
     authController.protect,
     authController.restrictTo('lead-guide', 'admin'),

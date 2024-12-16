@@ -22,8 +22,7 @@
 // };
 
 /* eslint-disable */
-import axios from 'axios';
-import { showAlert } from './alerts';
+import { showAlert } from '/js/alerts.js';
 const stripe = Stripe(
   'pk_test_51QVbHsB7mecCB9wjHTLr3iUFnoEd3ARPyDI1jkauth27KWcyAHEoSqq0pIfTfYedZgOZR6d5fgqe7Q5XK7vWQF3100dh7fvnFH'
 );

@@ -28,7 +28,8 @@ exports.getTour = CatchAsync(async (req, res, next) => {
 
   res.status(200).render('tour', {
     title: `${tour.name} Tour`,
-    tour
+    tour,
+    TourBooked: req.TourBooked
   });
 });
 
@@ -70,10 +71,10 @@ exports.getMyTours = CatchAsync(async (req, res, next) => {
   // 2) Find tours with the returned IDs
   const tourIDs = bookings.map(el => el.tour);
   const tours = await Tour.find({ _id: { $in: tourIDs } });
-
   res.status(200).render('overview', {
     title: 'My Tours',
-    tours
+    tours,
+    user: req.user
   });
 });
 
@@ -89,7 +90,6 @@ exports.updateUserData = CatchAsync(async (req, res, next) => {
       runValidators: true
     }
   );
-
   res.status(200).render('account', {
     title: 'Your account',
     user: updatedUser

@@ -2,6 +2,7 @@ const express = require('express');
 const viewController = require('../controllers/viewController');
 const authController = require('../controllers/authContriller');
 const bookingController = require('../controllers/bookingController');
+const tourController = require('../controllers/tourController');
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ router.get(
   '/tour/:slug',
   authController.isLoggedIn,
   authController.protect,
+  tourController.isTourBooked,
   viewController.getTour
 );
 

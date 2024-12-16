@@ -1,6 +1,7 @@
 const multer = require('multer');
 const sharp = require('sharp');
 const Tour = require('./../models/tourModel');
+const Booking = require('./../models/bookingModels');
 const CatchAsync = require('./../utils/catchAsync');
 const factory = require('./handlerFactory');
 const AppError = require('./../utils/appError');
@@ -219,4 +220,26 @@ exports.getDistances = CatchAsync(async (req, res, next) => {
       data: distances
     }
   });
+});
+
+exports.isTourBooked = CatchAsync(async (req, res, next) => {
+  // First, find the tour by its slug
+  const tour = await Tour.findOne({ slug: req.params.slug });
+
+  if (!tour) {
+    // If no tour is found, send a response or handle the error
+    return res.status(404).send('Tour not found');
+  }
+
+  // Check if there's a booking document where the user ID and the tour ID match
+  const booking = await Booking.findOne({
+    user: req.user.id, // Assuming the user is stored in req.user.id
+    tour: tour._id // Use the _id of the found tour
+  });
+
+  // Directly assign booking as a boolean value (true if found, false if not)
+  req.TourBooked = !!booking; // This converts the booking to a boolean
+
+  // Proceed to the next middleware or route handler
+  next();
 });
