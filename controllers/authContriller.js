@@ -52,7 +52,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(req.body);
+
   if (!email || !password) {
     return next(new AppError('Please provide email and password', 400));
   }
@@ -163,11 +163,11 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 3) Send it to user's email
 
   // const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
-  // console.log(resetURL, message);
+
   try {
     const resetURL = `${req.protocol}://${req.get(
       'host'
-    )}/api/v1/users/resetPassword/${resetToken}`;
+    )}/resetPassword/${resetToken}`;
     await new Email(user, resetURL).sendPasswordReset();
     res.status(200).json({
       status: 'success',

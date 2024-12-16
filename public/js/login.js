@@ -71,7 +71,11 @@ export const logout = async () => {
     });
 
     // Fixed the conditional check here
-    if (res.data.status === 'success') location.reload(true);
+    if (res.data.status === 'success') {
+      window.setTimeout(() => {
+        location.assign('/');
+      }, 1500);
+    }
   } catch (err) {
     console.log(err.response);
     showAlert('error', 'Error logging out! Try again.');

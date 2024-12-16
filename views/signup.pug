@@ -1,0 +1,28 @@
+extends structure
+
+block content
+  main.main
+    .login-form
+      h2.heading-secondary.ma-bt-lg Create your account
+      if message
+        .alert.alert--error #{message}
+      form.form.form--signup
+        .form__group
+          label.form__label(for='name') User name
+          input#name.form__input(type='text', name='name', placeholder='John Doe', required)
+        .form__group
+          label.form__label(for='role') Role
+          input#role.form__input(type='text', name='role', placeholder='user', required)
+        .form__group
+          label.form__label(for='email') Email address
+          input#email.form__input(type='email', name='email', placeholder='you@example.com', required)
+        .form__group.ma-bt-md
+          label.form__label(for='password') Password
+          input#password.form__input(type='password', name='password', placeholder='••••••••', required, minlength='8')
+        .form__group.ma-bt-md
+          label.form__label(for='passwordConfirm') Confirm Password
+          input#passwordConfirm.form__input(type='password', name='passwordConfirm', placeholder='••••••••', required, minlength='8')
+        .form__group
+          button.btn.btn--green(type='submit') Sign Up
+  script( type="module" src="/js/signup.js") 
+  script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js") 

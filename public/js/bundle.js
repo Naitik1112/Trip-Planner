@@ -12766,7 +12766,11 @@ var logout = exports.logout = /*#__PURE__*/function () {
         case 3:
           res = _context2.sent;
           // Fixed the conditional check here
-          if (res.data.status === 'success') location.reload(true);
+          if (res.data.status === 'success') {
+            window.setTimeout(function () {
+              location.assign('/');
+            }, 1500);
+          }
           _context2.next = 11;
           break;
         case 7:
@@ -13271,7 +13275,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54959" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51495" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
