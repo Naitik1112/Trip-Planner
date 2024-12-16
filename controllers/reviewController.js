@@ -1,6 +1,7 @@
 const Review = require('./../models/reviewModels');
 const factory = require('./handlerFactory');
 const Tour = require('./../models/tourModel');
+const CatchAsync = require('./../utils/catchAsync');
 
 exports.getAllReviews = factory.getAll(Review);
 
@@ -12,9 +13,24 @@ exports.setTourUserIds = async (req, res, next) => {
   }
   if (!req.body.tour) req.body.tour = tour._id;
   if (!req.body.user) req.body.user = req.user.id;
-  console.log(req.body);
+
   next();
 };
+
+exports.user = CatchAsync(async (req, res) => {
+  const userId = req.user.id;
+  const userReviews = await Review.find({ user: userId });
+
+  req.reviews = userReviews;
+
+  res.status(200).json({
+    status: 'success',
+    results: userReviews.length,
+    reviews: {
+      reviews: req.reviews
+    }
+  });
+});
 
 exports.createReview = factory.createOne(Review);
 

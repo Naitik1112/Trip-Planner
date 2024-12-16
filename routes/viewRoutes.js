@@ -22,6 +22,8 @@ router.get('/signup', viewController.getSignupForm);
 
 router.get('/forgotPassword', viewController.getForgotPasswordForm);
 
+router.get('/reviews', authController.protect, viewController.getReviews);
+
 router.get('/resetPassword/:token', viewController.getResetPasswordForm);
 
 router.get('/me', authController.protect, viewController.getAccount);

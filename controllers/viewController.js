@@ -1,6 +1,7 @@
 const Tour = require('../models/tourModel');
 const User = require('../models/userModels');
 const Booking = require('../models/bookingModels');
+const Review = require('../models/reviewModels');
 const CatchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
@@ -61,6 +62,36 @@ exports.getAccount = (req, res) => {
   res.status(200).render('account', {
     title: 'Your account',
     user: req.user
+  });
+};
+
+exports.getReviews = async (req, res) => {
+  const userId = req.user.id;
+
+  // Fetch reviews written by the user
+  const userReviews = await Review.find({ user: userId });
+
+  // Extract tour IDs from reviews
+  const tourIds = userReviews.map(review => review.tour);
+
+  // Fetch details of tours related to the reviews
+  const tourDetails = await Tour.find({ _id: { $in: tourIds } }).select(
+    'name duration price slug imageCover'
+  );
+
+  // Combine reviews with their corresponding tour details
+  const reviewsWithTours = userReviews.map(review => {
+    const tour = tourDetails.find(
+      tourDetail => tourDetail._id.toString() === review.tour.toString()
+    );
+    return { ...review._doc, tour }; // Spread `review` fields and add `tour`
+  });
+
+  // Pass combined reviews and user details to the view
+  res.status(200).render('reviews', {
+    title: 'Your Reviews',
+    reviews: reviewsWithTours, // Unified array of reviews with tours
+    user: req.user // Authenticated user details
   });
 };
 

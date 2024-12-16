@@ -6,6 +6,8 @@ const router = express.Router({ mergeParams: true });
 
 router.use(authController.protect);
 
+router.route('/user').get(reviewController.user);
+
 router
   .route('/')
   .get(reviewController.getAllReviews)
