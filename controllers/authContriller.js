@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const User = require('./../models/userModels');
 const AppError = require('./../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
@@ -27,14 +28,30 @@ const createSendToken = (user, statusCode, res) => {
   // Remove password from output
   user.password = undefined;
 
-  res.status(statusCode).json({
-    status: 'success',
-    token,
-    data: {
-      user
-    }
-  });
+  // res.status(statusCode).json({
+  //   status: 'success',
+  //   token,
+  //   data: {
+  //     user
+  //   }
+  // });
 };
+
+exports.googleLogin = passport.authenticate('google', {
+  scope: ['profile', 'email']
+});
+
+// Google callback route
+exports.googleCallback = catchAsync(async (req, res, next) => {
+  // User is already authenticated via passport
+  const { user } = req;
+
+  // Generate JWT and store it in the cookie
+  createSendToken(user, 200, res);
+
+  // Redirect user to the desired page after login
+  res.redirect('/me'); // or any page you want the user to be redirected to after login
+});
 
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
@@ -42,9 +59,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
-    role: req.body.role
+    role: 'user'
   });
-
   const url = `${req.protocol}://${req.get('host')}/me`;
   await new Email(newUser, url).sendWelcome();
   createSendToken(newUser, 201, res);

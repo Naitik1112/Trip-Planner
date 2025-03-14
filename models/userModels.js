@@ -6,16 +6,15 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'A uer must have a name'],
+    required: [true, 'A user must have a name'],
     trim: true
-    // validate: [validator.isAlpha, 'Tour name must only contain characters']
   },
   email: {
     type: String,
-    required: [true, 'A user should have a email'],
+    required: [true, 'A user should have an email'],
     unique: true,
     lowercase: true,
-    validate: [validator.isEmail, 'Please provide information of mail']
+    validate: [validator.isEmail, 'Please provide a valid email']
   },
   photo: {
     type: String,
@@ -28,19 +27,20 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, 'Passwaord is required'],
-    minlength: 8,
+    // required: [true, 'Password is required'],
+    // minlength: 8,
     select: false
   },
+  googleId: String,
   passwordConfirm: {
-    type: String,
-    required: [true, 'Confirm the password'],
-    validate: {
-      validator: function(el) {
-        return el === this.password;
-      },
-      message: 'Passwords are not same'
-    }
+    type: String
+    // required: [true, 'Confirm the password'],
+    // validate: {
+    //   validator: function(el) {
+    //     return el === this.password;
+    //   },
+    //   message: 'Passwords must be the same'
+    // }
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
@@ -52,32 +52,47 @@ const userSchema = new mongoose.Schema({
   }
 });
 
+// Pre-save hook for password hashing and handling Google login
 userSchema.pre('save', async function(next) {
+  // If the user is being created via Google, skip password and passwordConfirm
+  if (this.googleId) {
+    this.password = undefined; // Do not require password for Google OAuth login
+    this.passwordConfirm = undefined; // Skip password confirmation for Google OAuth
+    return next(); // Skip further processing for password
+  }
+
+  // Only hash the password if it's being modified
   if (!this.isModified('password')) return next();
 
+  // Hash the password if it's being modified or set
   this.password = await bcrypt.hash(this.password, 12);
-  this.passwordConfirm = undefined;
+  this.passwordConfirm = undefined; // Remove passwordConfirm after hashing
   next();
 });
 
+// Pre-save hook to update passwordChangedAt field if password is changed
 userSchema.pre('save', function(next) {
   if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangedAt = Date.now() - 1000;
   next();
 });
+
+// Query middleware to only find active users
 userSchema.pre(/^find/, function(next) {
-  // this points to the current query
   this.find({ active: { $ne: false } });
   next();
 });
+
+// Method to check if password is correct
 userSchema.methods.correctPassword = async function(
-  candidatepassword,
-  userpassword
+  candidatePassword,
+  userPassword
 ) {
-  return await bcrypt.compare(candidatepassword, userpassword);
+  return await bcrypt.compare(candidatePassword, userPassword);
 };
 
+// Method to check if password has changed after JWT issuance
 userSchema.methods.changedPasswordAfter = function(JWTTimesstamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
@@ -89,6 +104,7 @@ userSchema.methods.changedPasswordAfter = function(JWTTimesstamp) {
   return false;
 };
 
+// Method to generate password reset token
 userSchema.methods.createPasswordResetToken = function() {
   const resetToken = crypto.randomBytes(32).toString('hex');
 
@@ -96,8 +112,6 @@ userSchema.methods.createPasswordResetToken = function() {
     .createHash('sha256')
     .update(resetToken)
     .digest('hex');
-
-  // console.log({ resetToken }, this.passwordResetToken);
 
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 
