@@ -55,6 +55,13 @@ exports.getAccount = (req, res) => {
   });
 };
 
+exports.getHome = (req, res) => {
+  res.status(200).render('home', {
+    title: 'Chat',
+    user: req.user
+  });
+};
+
 // exports.getReviews = async (req, res) => {
 //   const userId = req.user.id;
 

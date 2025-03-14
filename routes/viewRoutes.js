@@ -4,7 +4,7 @@ const authController = require('../controllers/authContriller');
 
 const router = express.Router();
 
-router.get('/', authController.protect, viewController.getAccount);
+router.get('/', authController.protect, viewController.getHome);
 
 router.get('/login', viewController.getLoginForm);
 
