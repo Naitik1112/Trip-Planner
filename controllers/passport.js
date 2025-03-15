@@ -1,6 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/userModels');
+const Email = require('../utils/email');
 
 passport.use(
   'google-signup',
@@ -23,6 +24,8 @@ passport.use(
           });
         }
 
+        const url = 'https://trip-planner-cjco.onrender.com/me';
+        await new Email(profile.emails[0].value, url).sendWelcome();
         return done(null, user);
       } catch (err) {
         return done(err, null);

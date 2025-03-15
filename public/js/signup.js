@@ -2,20 +2,19 @@
 console.log('Hellow');
 import { showAlert } from '/js/alerts.js';
 
-export const signup = async (name, role, email, password, passwordConfirm) => {
+export const signup = async (name, email, password, passwordConfirm) => {
   try {
     const res = await axios({
       method: 'POST',
       url: '/api/v1/users/signup',
       data: {
         name,
-        role,
         email,
         password,
         passwordConfirm
       }
     });
-
+    console.log(res.data.status);
     if (res.data.status === 'success') {
       showAlert('success', 'Account created successfully!');
       window.setTimeout(() => {
@@ -36,11 +35,10 @@ if (signupForm) {
     e.preventDefault();
 
     const name = document.getElementById('name').value;
-    const role = document.getElementById('role').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const passwordConfirm = document.getElementById('passwordConfirm').value;
-
-    signup(name, role, email, password, passwordConfirm);
+    console.log(email);
+    signup(name, email, password, passwordConfirm);
   });
 }

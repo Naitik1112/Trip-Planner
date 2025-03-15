@@ -28,13 +28,13 @@ const createSendToken = (user, statusCode, res) => {
   // Remove password from output
   user.password = undefined;
 
-  // res.status(statusCode).json({
-  //   status: 'success',
-  //   token,
-  //   data: {
-  //     user
-  //   }
-  // });
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user
+    }
+  });
 };
 
 exports.googleLogin = passport.authenticate('google', {
