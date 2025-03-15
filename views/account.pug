@@ -16,9 +16,9 @@ block content
       nav.user-view__menu
         ul.side-nav
           +navItem('/me', 'Settings', 'settings', true)
-          +navItem('#', 'History', 'briefcase')
+          //- +navItem('#', 'History', 'briefcase')
           +navItem('/changePassword', 'Change Password', 'star')
-          +navItem('#', 'Billing', 'credit-card')
+          //- +navItem('#', 'Billing', 'credit-card')
 
         - if (user.role === 'admin')
           .admin-nav

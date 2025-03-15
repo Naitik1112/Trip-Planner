@@ -4,23 +4,9 @@ block content
   main.main
     .login-form
       h2.heading-secondary.ma-bt-lg Log into your account
-      form.form.form--login
-        .form__group
-          label.form__label(for='email') Email address
-          input#email.form__input(type='email', name='email', placeholder='you@example.com', required)
-        .form__group.ma-bt-md
-          label.form__label(for='password') Password
-          input#password.form__input(type='password', name='password', placeholder='••••••••', required, minlength='8')
-        .form__group
-          button.btn.btn--green(type='submit') Login
-        h3 
-          | Don't remember your password? 
-          a(href='/forgotPassword') Reset it here
 
-
-    
       <div class="google_button">
-        <a href="/google/login" class="gsi-material-button">
+        <a href="/google/login" class="gsi-material-button" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 10px; background-color: #fff; border: 1px solid #ccc; border-radius: 5px; text-decoration: none; font-weight: bold; color: #333; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);" >
           <div class="gsi-material-button-state"></div>
           <div class="gsi-material-button-content-wrapper">
             <div class="gsi-material-button-icon">
@@ -36,6 +22,24 @@ block content
           </div>
         </a>
       </div>
+
+      .or or
+      form.form.form--login
+        .form__group
+          label.form__label(for='email') Email address
+          input#email.form__input(type='email', name='email', placeholder='you@example.com', required)
+        .form__group.ma-bt-md
+          label.form__label(for='password') Password
+          input#password.form__input(type='password', name='password', placeholder='••••••••', required, minlength='8')
+        .form__group
+          button.btn.btn--green(type='submit') Login
+        h3 
+          | Don't remember your password? 
+          a(href='/forgotPassword') Reset it here
+
+
+    
+      
 
 
         

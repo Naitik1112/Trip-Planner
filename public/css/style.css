@@ -1329,12 +1329,30 @@ body {
   transform: translateY(-2px);
 }
 
+.or{
+  width: 100%;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  margin: 15px;
+}
+
+.gsi-material-button {
+  width: 100%; /* Makes it take full width of parent */
+  display: flex; /* Ensures proper alignment of child elements */
+  align-items: center;
+  justify-content: center; /* Centers the text/icon */
+  padding: 10px; /* Adjust padding for better spacing */
+  box-sizing: border-box; /* Ensures padding doesn’t affect width */
+  text-decoration: none; /* Removes default link styling */
+}
+
 .google_button{
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
+  margin: 5px;
 }
 
 .gsi-material-button {

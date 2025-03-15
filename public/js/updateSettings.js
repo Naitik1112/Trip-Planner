@@ -82,6 +82,7 @@ export const updateSettings = async (data, type) => {
         : 'Something went wrong';
     showAlert('error', errorMessage);
   }
+  window.location.reload();
 };
 
 // Define DOM elements

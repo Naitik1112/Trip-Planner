@@ -5,7 +5,7 @@ body {
   .title {
     font-size: 35px;
     font-weight: bold;
-    background: linear-gradient(to right,  #4e9eff, #006eff);
+    background: linear-gradient(to right,  #67a9f8,#4c9afa, #092d5c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
@@ -34,7 +34,7 @@ body {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
   }
   
   .form__group {
@@ -47,7 +47,7 @@ body {
     color: white;
     text-align: center;
     padding: 10px 25px;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: bold;
     border-radius: 25px;
     cursor: pointer;
