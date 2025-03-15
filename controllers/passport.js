@@ -25,7 +25,7 @@ passport.use(
         }
 
         const url = 'https://trip-planner-cjco.onrender.com/me';
-        await new Email(profile.emails[0].value, url).sendWelcome();
+        await new Email(user, url).sendWelcome();
         return done(null, user);
       } catch (err) {
         return done(err, null);

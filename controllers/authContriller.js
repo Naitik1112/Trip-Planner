@@ -13,6 +13,22 @@ const signToken = id => {
   });
 };
 
+const createSendTokenForGoogle = (user, statusCode, res) => {
+  const token = signToken(user._id);
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true
+  };
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
+  res.cookie('jwt', token, cookieOptions);
+
+  // Remove password from output
+  user.password = undefined;
+};
+
 const createSendToken = (user, statusCode, res) => {
   const token = signToken(user._id);
   const cookieOptions = {
@@ -47,7 +63,7 @@ exports.googleCallback = catchAsync(async (req, res, next) => {
   const { user } = req;
 
   // Generate JWT and store it in the cookie
-  createSendToken(user, 200, res);
+  createSendTokenForGoogle(user, 200, res);
 
   // Redirect user to the desired page after login
   res.redirect('/me'); // or any page you want the user to be redirected to after login
