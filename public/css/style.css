@@ -302,7 +302,7 @@ body {
 
 .header {
   background-color: #444;
-  padding: 0 5rem;
+  padding: 0 5rem;  
   height: 8rem;
   position: relative;
   z-index: 100;
@@ -325,7 +325,7 @@ body {
   }
 }
 .header__logo img {
-  height: 3.5rem;
+  height: 5.5rem;
 }
 @media only screen and (max-width: 62.5em) {
   .header__logo {

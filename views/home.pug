@@ -1,33 +1,50 @@
 extends base
 
 block content
+  
+  main.main
+    div.content
+      h1.title AI-Assisted Travel Advisor
+      .search-box
+        .search-container
+          .search-row
+            .form__group
+              label.form__label(for='from_city') From City/Country
+              input#from_city.form__input(type='text', required, name='from_city')
 
-    .search-box
-      .search-container
-        .search-row
-          .form__group
-            label.form__label(for='from_city') From City/Country
-            input#from_city.form__input(type='text', required, name='from_city')
+            .form__group
+              label.form__label(for='to_city') To City/Country
+              input#to_city.form__input(type='text', required, name='to_city')
 
-          .form__group
-            label.form__label(for='to_city') To City/Country
-            input#to_city.form__input(type='text', required, name='to_city')
+            .form__group
+              label.form__label(for='departure_Date') Departure Date
+              input#departure_Date.form__input(type='date', required, name='departure_Date')
 
-          .form__group
-            label.form__label(for='departure_Date') Departure Date
-            input#departure_Date.form__input(type='date', required, name='departure_Date')
+          .search-row
+            .form__group
+              label.form__label(for='guests') Guests
+              input#guests.form__input(type='number', min="1", required, name='guests')
 
-        .search-row
-          .form__group
-            label.form__label(for='guests') Guests
-            input#guests.form__input(type='number', min="1", required, name='guests')
+            .form__group
+              label.form__label(for='days') Days of Trip
+              input#days.form__input(type='number', min="1", required, name='days')
 
-          .form__group
-            label.form__label(for='days') Days of Trip
-            input#days.form__input(type='number', min="1", required, name='days')
+            .form__group
+              label.form__label(for='rating') Rating of Hotel
+              input#rating.form__input(type='number', min="1", required, name='rating')
 
-          .form__group
-            label.form__label(for='budget') Approx Budget (Per Person)
-            input#budget.form__input(type='number', min="1", required, name='budget')
+          .search-btn#generate-btn GENERATE PLAN
 
-        .search-btn GENERATE
+      div.search-box.chat
+        div.tabs
+          button.tab-button.active(data-tab="tab1") Flights
+          button.tab-button(data-tab="tab2") Hotels
+          button.tab-button(data-tab="tab3") Itinerary
+
+        div.tab-content#tab1 
+        div.tab-content#tab2(style="display: none;") 
+        div.tab-content#tab3(style="display: none;")
+
+  
+  script( type="module" src="/js/home.js") 
+

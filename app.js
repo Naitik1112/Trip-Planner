@@ -17,6 +17,7 @@ const AppError = require('./utils/appError');
 const userRouter = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
 const viewRouter = require('./routes/viewRoutes');
+const itineraryRoutes = require('./routes/itenaryRoutes');
 const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
@@ -102,6 +103,14 @@ app.use((req, res, next) => {
 // 3) ROUTES
 app.use('/', viewRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/itinerary', itineraryRoutes);
+
+app.use((req, res, next) => {
+  if (req.url.endsWith('.map')) {
+    return res.status(404).send('Not Found');
+  }
+  next();
+});
 
 // 4) 404 Handler
 app.all('*', (req, res, next) => {
