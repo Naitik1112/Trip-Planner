@@ -62,6 +62,13 @@ exports.getHome = (req, res) => {
   });
 };
 
+exports.getChangePassword = (req, res) => {
+  res.status(200).render('changePassword', {
+    title: 'Your account',
+    user: req.user
+  });
+};
+
 // exports.getReviews = async (req, res) => {
 //   const userId = req.user.id;
 

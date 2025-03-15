@@ -23,7 +23,7 @@ router.get(
 // Google Signup Callback
 router.get(
   '/google/callback',
-  passport.authenticate('google-signup', { failureRedirect: '/login' }),
+  passport.authenticate('google-signup', { failureRedirect: '/signin' }),
   authController.googleCallback
 );
 
