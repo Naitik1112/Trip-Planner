@@ -22,7 +22,7 @@ block content
 
           .search-row
             .form__group
-              label.form__label(for='guests') Guests
+              label.form__label(for='guests') Travellers
               input#guests.form__input(type='number', min="1", required, name='guests')
 
             .form__group
@@ -30,8 +30,12 @@ block content
               input#days.form__input(type='number', min="1", required, name='days')
 
             .form__group
-              label.form__label(for='rating') Rating of Hotel
-              input#rating.form__input(type='number', min="1", required, name='rating')
+              label.form__label(for='rating') Hotel Rating Range
+              .rating-range
+                input#minRating.form__input(type='range', min="1", max="5", step="0.1", value="1", required, name='minRating')
+                input#maxRating.form__input(type='range', min="1", max="5", step="0.1", value="5", required, name='maxRating')
+                input#minRatingInput.form__input(type='number', value="1", min="1", max="5", step="0.1", name="minRatingInput", required)
+                input#maxRatingInput.form__input(type='number', value="5", min="1", max="5", step="0.1", name="maxRatingInput", required)
 
           .search-btn#generate-btn GENERATE PLAN
 
@@ -47,4 +51,3 @@ block content
 
   
   script( type="module" src="/js/home.js") 
-

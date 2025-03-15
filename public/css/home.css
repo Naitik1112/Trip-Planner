@@ -57,7 +57,7 @@ body {
   }
 
   .chat{
-    height: 60vh;
+    height: 70vh;
     /* background: #d3d3d3; */
   }
   
@@ -133,4 +133,29 @@ body {
   background-color: #ff9800; /* Change to an orange shade */
   color: white;
   cursor: not-allowed;
+}
+
+.rating-range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rating-range input {
+  width: 22%;
+}
+
+.rating-range input[type="number"] {
+  width: 25%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#minRatingInput, #maxRatingInput {
+  text-align: center;
+}
+
+#ratingValue {
+  margin-left: 10px;
+  font-weight: bold;
 }

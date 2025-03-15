@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const departureDate = document.getElementById('departure_Date').value;
       const guests = document.getElementById('guests').value;
       const days = document.getElementById('days').value;
-      const rating = document.getElementById('rating').value;
+      const minrating = document.getElementById('minRatingInput').value;
+      const maxrating = document.getElementById('maxRatingInput').value;
 
       if (
         !fromCity ||
@@ -33,7 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
         !departureDate ||
         !guests ||
         !days ||
-        !rating
+        !minrating ||
+        !maxrating
       ) {
         showAlert('Please fill in all fields.', 'error');
         return;
@@ -52,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
             departureDate,
             guests,
             days,
-            rating
+            minrating,
+            maxrating
           })
         });
 
@@ -65,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayHotels(data.hotel);
         displayItinerary(data.itinerary);
 
-        showAlert('Itinerary generated successfully!', 'success');
+        showAlert('Plan generated successfully!', 'success');
       } catch (error) {
         console.error('Error:', error.message);
         showAlert('Failed to generate itinerary.', 'error');
@@ -80,11 +83,17 @@ document.addEventListener('DOMContentLoaded', () => {
 function showAlert(message, type) {
   const alertBox = document.createElement('div');
   alertBox.textContent = message;
-  alertBox.classList.add(
-    'alert',
-    type === 'error' ? 'alert-error' : 'alert-success'
-  );
+
+  // Set the background color to blue, regardless of type
+  alertBox.style.backgroundColor = 'blue';
+  alertBox.style.fontColor = 'black';
+
+  // Add the alert class and type-specific class for other styles
+  alertBox.classList.add('alert');
+  alertBox.classList.add(type === 'error' ? 'alert-error' : 'alert-success');
+
   document.body.appendChild(alertBox);
+
   setTimeout(() => alertBox.remove(), 3000);
 }
 
@@ -144,3 +153,27 @@ function displayItinerary(itinerary) {
 
   itineraryContainer.appendChild(itineraryList);
 }
+
+// Select the range and number input elements
+const minRatingInput = document.getElementById('minRating');
+const maxRatingInput = document.getElementById('maxRating');
+const minRatingNumInput = document.getElementById('minRatingInput');
+const maxRatingNumInput = document.getElementById('maxRatingInput');
+
+// Synchronize range input with number input
+minRatingInput.addEventListener('input', function() {
+  minRatingNumInput.value = minRatingInput.value;
+});
+
+maxRatingInput.addEventListener('input', function() {
+  maxRatingNumInput.value = maxRatingInput.value;
+});
+
+// Synchronize number input with range input
+minRatingNumInput.addEventListener('input', function() {
+  minRatingInput.value = minRatingNumInput.value;
+});
+
+maxRatingNumInput.addEventListener('input', function() {
+  maxRatingInput.value = maxRatingNumInput.value;
+});

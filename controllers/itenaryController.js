@@ -5,9 +5,25 @@ const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
 exports.generateItinerary = async (req, res) => {
   try {
-    const { fromCity, toCity, departureDate, guests, days, rating } = req.body;
+    const {
+      fromCity,
+      toCity,
+      departureDate,
+      guests,
+      days,
+      minrating,
+      maxrating
+    } = req.body;
 
-    if (!fromCity || !toCity || !departureDate || !guests || !days || !rating) {
+    if (
+      !fromCity ||
+      !toCity ||
+      !departureDate ||
+      !guests ||
+      !days ||
+      !minrating ||
+      !maxrating
+    ) {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
@@ -31,7 +47,7 @@ exports.generateItinerary = async (req, res) => {
       for:
       Destination: ${toCity}
       Travellers: ${guests}
-      Ratings of Hotel: ${rating}
+      Ratings range of Hotel: ${minrating} and ${maxrating}
     `;
 
     const prompt2 = `
