@@ -260,12 +260,12 @@ body {
   /* margin-top: 10px; */
   padding: 10px;
   width: 20%;
-  background-color: #85ace0;
+  background-color: #f4f8fc;
   border-radius: 2px;
   height: 100%;
   border-radius: 8px;
-  border: 2px solid rgb(199, 199, 199);
-  color: rgb(57, 57, 57);
+  border: 2px solid #3765a1;
+  color: #3765a1;
   display: flex;
   align-items: center;
   justify-content: center;
