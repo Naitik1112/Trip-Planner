@@ -17,14 +17,16 @@ block content
           .search-row
             .form__group
               label.form__label(for='from_city') From City/Country
-              input#from_city.form__input(type='text', required, name='from_city')
-              button#openMapBtn(type="button") 🔍 Search for Location
+              div.input_from
+                input#from_city.form__input.from(type='text', required, name='from_city')
+                button#openMapBtn(type="button") 🔍 
 
 
             .form__group
               label.form__label(for='to_city') To City/Country
-              input#to_city.form__input(type='text', required, name='to_city')
-              button#openMapBtnTo(type="button") 🔍 Search for Location
+              div.input_from
+                input#to_city.form__input.in(type='text', required, name='to_city')
+                button#openMapBtnTo(type="button") 🔍 
 
             .form__group
               label.form__label(for='departure_Date') Departure Date

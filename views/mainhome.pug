@@ -10,26 +10,26 @@ block content
       // list item
       .list
         .item
-          img(src="/Img/Image1.jpg")
+          img(src="/Img/Image2.jpeg")
           .content
-            .topic Trip Planner
-            .des Trip Planner
-              .buttons
-                button SEE MORE
+            .topic.color Trip Planner
+            .des Plan smarter, travel better – AI-powered flights, hotels, and itineraries in one place! 🚀
+            //-   .buttons
+            //-     button SEE MORE
         .item
-          img(src="/img/Image2.avif")
+          img(src="/img/Image1.jpg")
           .content
-            .topic Trip sksks
-            .des= "Trip sjsjs"
-              .buttons
-                button SEE MORE
+            .topic.color1 Generate Plan Using AI
+            .des= "Let AI craft your perfect trip – seamless flights, cozy stays, and tailored itineraries!"
+            //-   .buttons
+            //-     button SEE MORE
         .item
           img(src="/Img/Image3.jpg")
           .content
-            .topic Trip Planner
-            .des Trip Planner
-              .buttons
-                button SEE MORE
+            .topic.color2 Explore Different place !!
+            .des Discover new destinations effortlessly – AI-powered travel planning at your fingertips!
+            //-   .buttons
+            //-     button SEE MORE
         //- .item
         //-   img(src="/Img/Gta_world_12.jpg")
         //-   .content
@@ -40,7 +40,7 @@ block content
       // list thumbnail
       .thumbnail
         .item
-          img(src="/img/Image2.avif")
+          img(src="/img/Image1.jpg")
           .content
             //- .title Trip Planner
             //- .description Description
@@ -50,11 +50,11 @@ block content
             //- .title Trip Planner
             //- .description Description
         .item
-          img(src="/img/Image1.jpg")
+          img(src="/img/Image2.jpeg")
           .content
             //- .title Trip Planner
             //- .description Description
-        .item
+        //- .item
         //-   img(src="/Img/Gta_world_12.jpg")
         //-   .content
         //-     .title Trip Planner
@@ -63,6 +63,33 @@ block content
       .arrows
         button#prev <
         button#next >
+    .container#our-features
+        div.featuretitle Our Features 
+        div.cards
+            .card
+                img(src="/img/Airport.jpg" alt="Destination Planner")
+                h3 Destination Planner
+                p Get popular attractions, local culture, cuisine, and events happening during the user's travel dates.
+            .card
+                img(src="/img/Itenary.jpg" alt="Itinerary Planner")
+                h3 Itinerary Planner
+                p Provide users with personalized travel itineraries, activity suggestions, and restaurant recommendations.
+            .card
+                img(src="/img/Hotel.webp" alt="Booking Assistant")
+                h3 Hotel booking Assistant
+                p Help users compare flight, hotel, and transportation options to ease the booking process.
     
+    .section#about-us
+        .content1
+            h2 About Us
+            p
+            | At Trip Planner, we believe that travel should be seamless, exciting, 
+            | and stress-free. Our AI-driven platform is designed to assist travelers 
+            | at every step of their journey. Whether you're looking for 
+            | personalized travel plans, real-time updates, or the best deals on 
+            | accommodations and activities, we've got you covered. 
+        .image-container
+            img(src="/img/Travel.jpg" alt="Travel Destination")
+
     script(src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js")
-    script(type="module" src="./js/mainpage.js") 
+    script(src="./js/mainpage.js") 

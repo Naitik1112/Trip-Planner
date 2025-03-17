@@ -45,7 +45,7 @@ body {
 main.table {
     width: min(70vw,1900px);
     height: 75vh;
-    background-color: #fff5;
+    background-color: rgba(147, 177, 240, 0.267);
 
     backdrop-filter: blur(7px);
     box-shadow: 0 .4rem .8rem #0005;
@@ -57,9 +57,9 @@ main.table {
 .table__header {
     width: 100%;
     height: 10%;
-    background-color: rgba(147, 177, 240, 0.267);
+    background-color: rgba(84, 127, 220, 0.548);
     padding: .8rem 1rem;
-
+    color: #000;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -86,7 +86,7 @@ main.table {
 }
 
 .table__header .input-group img {
-    width: 1.2rem;
+    width: 2rem;
     height: 1.2rem;
 }
 
@@ -152,7 +152,7 @@ thead th {
     position: sticky;
     top: 0;
     left: 0;
-    background-color: #afccf0;
+    background-color: #d0e0f3;
     cursor: pointer;
     text-transform: capitalize;
     color: #494949;
@@ -173,7 +173,7 @@ tbody tr.hide {
 }
 
 tbody tr:hover {
-    background-color: #fff6 !important;
+    background-color: #e2edff !important;
 }
 
 tbody tr td,
@@ -249,7 +249,7 @@ thead th:hover {
 }
 
 thead th.active span.icon-arrow{
-    background-color: #ffffff;
+    background-color: #416ab1;
     color: #fff;
 }
 
@@ -275,7 +275,7 @@ thead th.active,tbody td.active {
 }
 
 .export__file .export__file-btn:hover { 
-    background-color: #fff;
+    background-color: #416ab1;
     transform: scale(1.15);
     cursor: pointer;
 }
@@ -328,7 +328,7 @@ thead th.active,tbody td.active {
 
 .export__file .export__file-options label:hover{
     transform: scale(1.05);
-    background-color: #fff;
+    background-color: #416ab1;
     cursor: pointer;
 }
 

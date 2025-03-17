@@ -1,164 +1,60 @@
 /* eslint-disable */
-document.addEventListener('DOMContentLoaded', event => {
-  const cards = document.querySelectorAll('.card');
-  const cardItems = document.querySelectorAll('.card-item');
+async function slidshow() {
+  document.addEventListener('DOMContentLoaded', function() {
+    //step 1: get DOM
+    let nextDom = document.getElementById('next');
+    let prevDom = document.getElementById('prev');
 
-  // Function to assign numbers to cards
-  function assignCardNumbers() {
-    cardItems.forEach((item, index) => {
-      const numberElement = item.querySelector('.number');
-      if (numberElement) {
-        numberElement.textContent = index + 1;
+    let carouselDom = document.querySelector('.carousel');
+    let SliderDom = carouselDom.querySelector('.carousel .list');
+    let thumbnailBorderDom = document.querySelector('.carousel .thumbnail');
+    let thumbnailItemsDom = thumbnailBorderDom.querySelectorAll('.item');
+    let timeDom = document.querySelector('.carousel .time');
+
+    thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+    let timeRunning = 1500;
+    let timeAutoNext = 7000;
+
+    nextDom.onclick = function() {
+      showSlider('next');
+    };
+
+    prevDom.onclick = function() {
+      showSlider('prev');
+    };
+    let runTimeOut;
+    let runNextAuto = setTimeout(() => {
+      nextDom.click();
+    }, timeAutoNext);
+    function showSlider(type) {
+      let SliderItemsDom = SliderDom.querySelectorAll('.carousel .list .item');
+      let thumbnailItemsDom = document.querySelectorAll(
+        '.carousel .thumbnail .item'
+      );
+
+      if (type === 'next') {
+        SliderDom.appendChild(SliderItemsDom[0]);
+        thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+        carouselDom.classList.add('next');
+      } else {
+        SliderDom.prepend(SliderItemsDom[SliderItemsDom.length - 1]);
+        thumbnailBorderDom.prepend(
+          thumbnailItemsDom[thumbnailItemsDom.length - 1]
+        );
+        carouselDom.classList.add('prev');
       }
-    });
-  }
+      clearTimeout(runTimeOut);
+      runTimeOut = setTimeout(() => {
+        carouselDom.classList.remove('next');
+        carouselDom.classList.remove('prev');
+      }, timeRunning);
 
-  // Initial call to assign numbers
-  assignCardNumbers();
-
-  const swiper = new Swiper('.slider-wrapper', {
-    loop: true,
-    grabCursor: true,
-    spaceBetween: 50,
-
-    // If we need pagination
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-      dynamicBullets: true
-    },
-
-    // Navigation arrows
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
-    },
-    breakpoints: {
-      0: {
-        slidesPerView: 1
-      },
-      568: {
-        slidesPerView: 2
-      },
-      924: {
-        slidesPerView: 3
-      },
-      1024: {
-        slidesPerView: 4
-      },
-      1224: {
-        slidesPerView: 5
-      }
+      clearTimeout(runNextAuto);
+      runNextAuto = setTimeout(() => {
+        nextDom.click();
+      }, timeAutoNext);
     }
   });
-
-  const swiper_1 = new Swiper('.slider-wrapper_1', {
-    loop: true,
-    grabCursor: true,
-    spaceBetween: 50,
-
-    // If we need pagination
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-      dynamicBullets: true
-    },
-
-    // Navigation arrows
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
-    },
-    breakpoints: {
-      0: {
-        slidesPerView: 1
-      },
-      768: {
-        slidesPerView: 2
-      },
-      1004: {
-        slidesPerView: 3
-      },
-      1374: {
-        slidesPerView: 4
-      }
-    }
-  });
-
-  swiper.on('slideChange', assignCardNumbers);
-  swiper_1.on('slideChange', assignCardNumbers);
-});
-
-function adjustSliderWidth1() {
-  const slider = document.querySelector('.slider-wrapper');
-  if (slider) {
-    const newWidth = window.innerWidth - 200;
-    console.log(window.innerWidth, newWidth);
-    slider.style.maxWidth = `${newWidth}px`;
-  }
 }
 
-// window.addEventListener('load', adjustSliderWidth1);
-
-// window.addEventListener('resize', adjustSliderWidth1);
-
-function adjustSliderWidth() {
-  const slider = document.querySelector('.slider-wrapper_1');
-  if (slider) {
-    const newWidth = window.innerWidth - 200;
-    slider.style.maxWidth = `${newWidth}px`;
-  }
-}
-
-// window.addEventListener('load', adjustSliderWidth);
-
-// window.addEventListener('resize', adjustSliderWidth);
-
-const swiper_2 = new Swiper('.slider-wrapper_3', {
-  loop: true,
-  grabCursor: true,
-  spaceBetween: 30,
-
-  // If we need pagination
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-    dynamicBullets: true
-  },
-
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev'
-  },
-
-  breakpoints: {
-    0: {
-      slidesPerView: 1
-    },
-    568: {
-      slidesPerView: 2
-    },
-    924: {
-      slidesPerView: 3
-    },
-    1024: {
-      slidesPerView: 4
-    },
-    1224: {
-      slidesPerView: 4
-    }
-  }
-});
-
-function adjustSliderWidth2() {
-  const slider = document.querySelector('.slider-wrapper_3');
-  if (slider) {
-    const newWidth = window.innerWidth - 200;
-    slider.style.maxWidth = `${newWidth}px`;
-  }
-}
-
-// window.addEventListener('load', adjustSliderWidth2);
-
-// window.addEventListener('resize', adjustSliderWidth2);
+slidshow();

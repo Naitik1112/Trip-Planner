@@ -244,16 +244,41 @@ body {
   border-radius: 10px;
 }
 
+.input_from{
+  display: flex;
+  justify-content: space-between;
+}
+
+.from, .in{
+  width: 88%;
+  height: 50%;
+  border-radius: 8px;
+}
+
 #openMapBtn{
-  margin-top: 10px;
-  padding: 2px;
-  width: 100%;
-  color: #006eff;
+  /* margin-top: 10px; */
+  padding: 10px;
+  width: 8%;
+  background-color: #5c98e7;
+  border-radius: 2px;
+  height: 100%;
+  border-radius: 8px;
+  border: 1px solid grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #openMapBtnTo{
-  margin-top: 10px;
-  padding: 2px;
-  width: 100%;
-  color: #006eff;
+  /* margin-top: 10px; */
+  padding: 10px;
+  width: 8%;
+  height: 100%;
+  border-radius: 8px;
+  background-color: #5c98e7;
+  border: 1px solid grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+

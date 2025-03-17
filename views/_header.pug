@@ -6,12 +6,24 @@ header.header
       img(src='/img/logo-white.png' alt='Trip Planner logo')
   nav.nav.nav--user
     if user
-      a.nav__el(href='/chat') Generate Plan
+      a.nav__el(href='/') Home
+      a.nav__el(href='/chat') Generate Travel Plan
       a.nav__el(href='/history') History
-      a.nav__el(href='/me')
-        img.nav__user-img(src=`/img/users/${user.photo}` alt=`Photo of ${user.name}`)
-        span= user.name.split(' ')[0]
-      a.nav__el.nav__el--logout Log out
+      //- a.nav__el
+      //-   img.nav__user-img(src=`/img/users/${user.photo}` alt=`Photo of ${user.name}`)
+      //- a.nav__el(href='/me')
+      //-   img.nav__user-img(src=`/img/users/${user.photo}` alt=`Photo of ${user.name}`)
+      //-   span= user.name.split(' ')[0]
+      //- a.nav__el.nav__el--logout Log out
+      nav.nav
+      a.nav__el#userDropdown
+          img.nav__user-img(src=`/img/users/${user.photo}` alt=`Photo of ${user.name}`)
+
+      .dropdown#dropdownMenu
+          a.nav__el(href='/me')
+              span= user.name.split(' ')[0]
+          a.nav__el.nav__el--logout Log out
     else
       a.nav__el(href='/login') Log in
       a.nav__el.nav__el--cta(href='/signup') Sign up
+  script(src="./js/dropdown.js") 
