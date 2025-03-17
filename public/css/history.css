@@ -38,9 +38,20 @@ body {
 
 .main{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
+
+.title {
+    font-size: 35px;
+    font-weight: bold;
+    background: linear-gradient(to right,  #67a9f8,#4c9afa, #092d5c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
 main.table {
     width: min(70vw,1900px);
