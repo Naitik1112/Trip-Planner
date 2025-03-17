@@ -3,7 +3,6 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-
 exports.generateItinerary = async (req, res) => {
   try {
     const {
@@ -42,7 +41,7 @@ exports.generateItinerary = async (req, res) => {
 
     const prompt1 = `
       Generate an Hotel details that includes:
-      - Hotels (name, price, rating) with at least 3 options
+      - Hotels (name, price, rating) with at least 8 options
       - DON'T USE * in the response
       - Generate only text , example : Hotel XYZ at price XYZ with rating XYZ
       for:
