@@ -1,0 +1,68 @@
+extends base
+
+block append head 
+    link(rel="stylesheet" href="/css/mainhome.css")
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css")
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css")
+
+block content 
+    .carousel
+      // list item
+      .list
+        .item
+          img(src="/Img/Image1.jpg")
+          .content
+            .topic Trip Planner
+            .des Trip Planner
+              .buttons
+                button SEE MORE
+        .item
+          img(src="/img/Image2.avif")
+          .content
+            .topic Trip sksks
+            .des= "Trip sjsjs"
+              .buttons
+                button SEE MORE
+        .item
+          img(src="/Img/Image3.jpg")
+          .content
+            .topic Trip Planner
+            .des Trip Planner
+              .buttons
+                button SEE MORE
+        //- .item
+        //-   img(src="/Img/Gta_world_12.jpg")
+        //-   .content
+        //-     .topic Trip Planner
+        //-     .des Trip Planner
+        //-       .buttons
+        //-         button SEE MORE
+      // list thumbnail
+      .thumbnail
+        .item
+          img(src="/img/Image2.avif")
+          .content
+            //- .title Trip Planner
+            //- .description Description
+        .item
+          img(src="/img/Image3.jpg")
+          .content
+            //- .title Trip Planner
+            //- .description Description
+        .item
+          img(src="/img/Image1.jpg")
+          .content
+            //- .title Trip Planner
+            //- .description Description
+        .item
+        //-   img(src="/Img/Gta_world_12.jpg")
+        //-   .content
+        //-     .title Trip Planner
+        //-     //- .description Description
+      // next prev
+      .arrows
+        button#prev <
+        button#next >
+    
+    script(src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js")
+    script(type="module" src="./js/mainpage.js") 

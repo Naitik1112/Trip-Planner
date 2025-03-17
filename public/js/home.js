@@ -68,6 +68,19 @@ document.addEventListener('DOMContentLoaded', () => {
         displayHotels(data.hotel);
         displayItinerary(data.itinerary);
 
+        // Send itinerary data to history API
+        await saveToHistory(
+          fromCity,
+          toCity,
+          departureDate,
+          guests,
+          days,
+          minrating,
+          maxrating,
+          data
+        );
+        console.log('history printed ??');
+
         showAlert('Plan generated successfully!', 'success');
       } catch (error) {
         console.error('Error:', error.message);
@@ -79,6 +92,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+async function saveToHistory(
+  fromCity,
+  toCity,
+  departureDate,
+  guests,
+  days,
+  minrating,
+  maxrating,
+  data
+) {
+  try {
+    const response = await fetch('/api/history/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: fromCity,
+        to: toCity,
+        departureDate,
+        travellers: guests,
+        tripDays: days,
+        minRating: minrating,
+        maxRating: maxrating,
+        flightDetails: JSON.stringify(data.flights),
+        hotelDetails: JSON.stringify(data.hotel),
+        iteneryDetails: JSON.stringify(data.itinerary)
+      })
+    });
+
+    if (!response.ok) throw new Error('Failed to save history');
+
+    console.log('History saved successfully');
+  } catch (error) {
+    console.error('Error saving history:', error.message);
+  }
+}
 
 function showAlert(message, type) {
   const alertBox = document.createElement('div');
@@ -177,3 +228,100 @@ minRatingNumInput.addEventListener('input', function() {
 maxRatingNumInput.addEventListener('input', function() {
   maxRatingInput.value = maxRatingNumInput.value;
 });
+
+// Replace with your Mapbox API key
+// St. Xavier's School Road, New Hirakunj Society, 380009, Naranpura, Ahmedabad, Ahmadabad, Gujarat, India
+mapboxgl.accessToken =
+  'pk.eyJ1IjoibmFpdGlrLXNoYWgiLCJhIjoiY200anBmM255MGZicDJqc2R3bndxaGp2cSJ9.i_g0WNG_11SJagZAIWzYNQ';
+
+// Select elements
+const mapModal = document.getElementById('locationModal');
+const openMapBtnFrom = document.getElementById('openMapBtn');
+const openMapBtnTo = document.getElementById('openMapBtnTo');
+const closeModal = document.querySelector('.close-modal');
+const confirmLocation = document.getElementById('confirmLocation');
+const cancelLocation = document.getElementById('cancelLocation');
+const fromCityInput = document.getElementById('from_city');
+const toCityInput = document.getElementById('to_city');
+
+let activeInput = null; // Track which input is being updated
+
+// Open modal and track the active input field
+openMapBtnFrom.addEventListener('click', () => {
+  activeInput = fromCityInput;
+  mapModal.style.display = 'block';
+});
+
+openMapBtnTo.addEventListener('click', () => {
+  activeInput = toCityInput;
+  mapModal.style.display = 'block';
+});
+
+// Close modal function
+const closePopup = () => (mapModal.style.display = 'none');
+closeModal.addEventListener('click', closePopup);
+cancelLocation.addEventListener('click', closePopup);
+
+// Default location (Ahmedabad, India)
+let selectedCoords = [72.5714, 23.0225];
+let selectedPlaceName = '';
+
+// Initialize Mapbox
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v12',
+  center: selectedCoords,
+  zoom: 10
+});
+
+// Add Search Box
+const geocoder = new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken,
+  mapboxgl: mapboxgl,
+  marker: false,
+  placeholder: 'Search for a location...'
+});
+
+map.addControl(geocoder, 'top-left');
+
+// Add Draggable Marker
+const marker = new mapboxgl.Marker({ draggable: true })
+  .setLngLat(selectedCoords)
+  .addTo(map);
+
+// Update marker & location name on search selection
+geocoder.on('result', e => {
+  const { center, place_name } = e.result;
+  selectedCoords = center;
+  selectedPlaceName = place_name;
+  marker.setLngLat(selectedCoords);
+});
+
+// Update coordinates when marker is dragged
+marker.on('dragend', () => {
+  selectedCoords = marker.getLngLat();
+  fetch(
+    `https://api.mapbox.com/geocoding/v5/mapbox.places/${selectedCoords.lng},${
+      selectedCoords.lat
+    }.json?access_token=${mapboxgl.accessToken}`
+  )
+    .then(res => res.json())
+    .then(data => {
+      selectedPlaceName = data.features[0]?.place_name || 'Unknown Location';
+    });
+});
+
+// Confirm Selection & Update Input Field
+confirmLocation.addEventListener('click', () => {
+  if (activeInput) {
+    activeInput.value = selectedPlaceName || 'Unknown Location';
+  }
+  closePopup();
+});
+
+// Close modal if user clicks outside
+window.onclick = event => {
+  if (event.target === mapModal) {
+    closePopup();
+  }
+};

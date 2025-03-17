@@ -1,5 +1,12 @@
 extends base
 
+
+block append head
+  link(rel="stylesheet", href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css")
+  script(src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js")
+  link(rel="stylesheet", href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.1.1/mapbox-gl-geocoder.css")
+  script(src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.1.1/mapbox-gl-geocoder.min.js")
+
 block content
   
   main.main
@@ -11,10 +18,13 @@ block content
             .form__group
               label.form__label(for='from_city') From City/Country
               input#from_city.form__input(type='text', required, name='from_city')
+              button#openMapBtn(type="button") 🔍 Search for Location
+
 
             .form__group
               label.form__label(for='to_city') To City/Country
               input#to_city.form__input(type='text', required, name='to_city')
+              button#openMapBtnTo(type="button") 🔍 Search for Location
 
             .form__group
               label.form__label(for='departure_Date') Departure Date
@@ -48,6 +58,19 @@ block content
         div.tab-content#tab1 
         div.tab-content#tab2(style="display: none;") 
         div.tab-content#tab3(style="display: none;")
+      
+      // Hidden Modal Popup for Map Selection
+      // Hidden Modal Popup for Map Selection
+      // Hidden Modal Popup for Map Selection
+      #locationModal.modal(style="display: none;")
+        .modal-content
+          span.close-modal ✖
+          h2 Select Location
+          #map
+          
+          // Add a proper div for buttons
+        .modal-buttons
+          button#confirmLocation(type="button")  OK
+          button#cancelLocation(type="button") Cancel
 
-  
   script( type="module" src="/js/home.js") 

@@ -1,0 +1,59 @@
+extends base
+
+block content
+  
+  main.main
+    
+    main.table#customers_table
+      section.table__header
+        h1 History
+        .input-group
+          input(type="search" placeholder="Search ...")
+          img(src="images/search.png" alt="")
+        .export__file
+          label.export__file-btn(for="export-file" title="Export File")
+          input#export-file(type="checkbox")
+          .export__file-options
+            label Export As &nbsp; &#10140;
+            label(for="export-file" id="toPDF") PDF 
+              img(src="images/pdf.png" alt="")
+            label(for="export-file" id="toJSON") JSON 
+              img(src="images/json.png" alt="")
+            label(for="export-file" id="toCSV") CSV 
+              img(src="images/csv.png" alt="")
+            label(for="export-file" id="toEXCEL") EXCEL 
+              img(src="images/excel.png" alt="")
+
+      section.table__body
+        table
+          thead
+            tr
+              th From 
+                span.icon-arrow &UpArrow;
+              th To 
+                span.icon-arrow &UpArrow;
+              th Travellers 
+                span.icon-arrow &UpArrow;
+              th Number of Days 
+                span.icon-arrow &UpArrow;
+              th Min Rating 
+                span.icon-arrow &UpArrow;
+              th Max Rating 
+                span.icon-arrow &UpArrow;
+          tbody
+            each h in history
+              tr
+                td= h.from
+                td= h.to
+                td= h.travellers
+                td= h.tripDays
+                td= h.minRating
+                td= h.maxRating
+      
+                
+                
+
+
+ 
+    link(rel="stylesheet" href="/css/history.css")
+    script( type="module" src="/js/history.js") 

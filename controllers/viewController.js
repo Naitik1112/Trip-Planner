@@ -56,7 +56,7 @@ exports.getAccount = (req, res) => {
 };
 
 exports.getHome = (req, res) => {
-  res.status(200).render('home', {
+  res.status(200).render('mainhome', {
     title: 'Chat',
     user: req.user
   });
@@ -65,6 +65,21 @@ exports.getHome = (req, res) => {
 exports.getChangePassword = (req, res) => {
   res.status(200).render('changePassword', {
     title: 'Your account',
+    user: req.user
+  });
+};
+
+exports.getHistory = (req, res) => {
+  res.status(200).render('history', {
+    title: 'Your History',
+    user: req.user,
+    history: req.history
+  });
+};
+
+exports.getChat = (req, res) => {
+  res.status(200).render('home', {
+    title: 'Generate Plan',
     user: req.user
   });
 };

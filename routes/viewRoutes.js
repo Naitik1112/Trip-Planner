@@ -1,5 +1,6 @@
 const express = require('express');
 const viewController = require('../controllers/viewController');
+const historyController = require('../controllers/historyController');
 const authController = require('../controllers/authContriller');
 
 const router = express.Router();
@@ -17,6 +18,15 @@ router.get(
   authController.protect,
   viewController.getChangePassword
 );
+
+router.get(
+  '/history',
+  authController.protect,
+  historyController.getUserHistory,
+  viewController.getHistory
+);
+
+router.get('/Chat', authController.protect, viewController.getChat);
 
 router.get('/resetPassword/:token', viewController.getResetPasswordForm);
 
